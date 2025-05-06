@@ -4,7 +4,7 @@
     "": {
       "name": "@prb/foundry-template",
       "dependencies": {
-        "@openzeppelin/contracts": "^5.0.1",
+        "solady": "^0.1.17",
       },
       "devDependencies": {
         "forge-std": "github:foundry-rs/forge-std#v1.8.1",
@@ -19,8 +19,6 @@
     "@babel/helper-validator-identifier": ["@babel/helper-validator-identifier@7.22.20", "", {}, "sha512-Y4OZ+ytlatR8AI+8KZfKuL5urKp7qey08ha31L8b3BwewJAoJamTzyvxPR/5D+KkdJCGPq/+8TukHBlY10FX9A=="],
 
     "@babel/highlight": ["@babel/highlight@7.23.4", "", { "dependencies": { "@babel/helper-validator-identifier": "^7.22.20", "chalk": "^2.4.2", "js-tokens": "^4.0.0" } }, "sha512-acGdbYSfp2WheJoJm/EBBBLh/ID8KDc64ISZ9DYtBmC8/Q204PZJLHyzeB5qMzJ5trcOkybd78M4x2KWsUq++A=="],
-
-    "@openzeppelin/contracts": ["@openzeppelin/contracts@5.0.1", "", {}, "sha512-yQJaT5HDp9hYOOp4jTYxMsR02gdFZFXhewX5HW9Jo4fsqSVqqyIO/xTHdWDaKX5a3pv1txmf076Lziz+sO7L1w=="],
 
     "@solidity-parser/parser": ["@solidity-parser/parser@0.16.2", "", { "dependencies": { "antlr4ts": "^0.5.0-alpha.4" } }, "sha512-PI9NfoA3P8XK2VBkK5oIfRgKDsicwDZfkVq9ZTBCQYGOP1N2owgY2dyLGyU5/J/hQs8KRk55kdmvTLjy3Mu3vg=="],
 
@@ -127,6 +125,8 @@
     "semver": ["semver@7.5.4", "", { "dependencies": { "lru-cache": "^6.0.0" }, "bin": { "semver": "bin/semver.js" } }, "sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA=="],
 
     "slice-ansi": ["slice-ansi@4.0.0", "", { "dependencies": { "ansi-styles": "^4.0.0", "astral-regex": "^2.0.0", "is-fullwidth-code-point": "^3.0.0" } }, "sha512-qMCMfhY040cVHT43K9BFygqYbUPFZKHOg7K73mtTWJRb8pyP3fzf4Ixd5SzdEJQ6MRUg/WBnOLxghZtKKurENQ=="],
+
+    "solady": ["solady@0.1.17", "", {}, "sha512-DOAe6KqFf5SOdz99kAr1eLL8z2T/AKYJAzs3ByzwsWzyUhtLwTFgF6x+pDoyFOptX681OAP0eWYzy8mqp604+Q=="],
 
     "solhint": ["solhint@3.6.2", "", { "dependencies": { "@solidity-parser/parser": "^0.16.0", "ajv": "^6.12.6", "antlr4": "^4.11.0", "ast-parents": "^0.0.1", "chalk": "^4.1.2", "commander": "^10.0.0", "cosmiconfig": "^8.0.0", "fast-diff": "^1.2.0", "glob": "^8.0.3", "ignore": "^5.2.4", "js-yaml": "^4.1.0", "lodash": "^4.17.21", "pluralize": "^8.0.0", "semver": "^7.5.2", "strip-ansi": "^6.0.1", "table": "^6.8.1", "text-table": "^0.2.0" }, "optionalDependencies": { "prettier": "^2.8.3" }, "bin": { "solhint": "solhint.js" } }, "sha512-85EeLbmkcPwD+3JR7aEMKsVC9YrRSxd4qkXuMzrlf7+z2Eqdfm1wHWq1ffTuo5aDhoZxp2I9yF3QkxZOxOL7aQ=="],
 

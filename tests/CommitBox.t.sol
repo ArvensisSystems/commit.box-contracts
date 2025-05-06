@@ -4,7 +4,7 @@ pragma solidity >=0.8.29 <0.9.0;
 import { Test } from "forge-std/src/Test.sol";
 import { console2 } from "forge-std/src/console2.sol";
 
-import { Foo } from "../src/Foo.sol";
+import { CommitBox } from "src/CommitBox.sol";
 
 interface IERC20 {
     function balanceOf(address account) external view returns (uint256);
