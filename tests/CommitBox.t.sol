@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.29 <0.9.0;
 
-import { IERC20 } from "forge-std/src/interfaces/IERC20.sol";
 import { Test } from "forge-std/src/Test.sol";
 
 import { MockERC20 } from "src/mock/MockERC20.sol";
