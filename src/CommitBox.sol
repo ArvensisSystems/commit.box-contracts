@@ -4,6 +4,7 @@ pragma solidity >=0.8.29;
 import { Ownable } from "solady/src/auth/Ownable.sol";
 import { SafeTransferLib } from "solady/src/utils/SafeTransferLib.sol";
 import { LynBitmap8 } from "./LynBitmap.sol";
+import { console2 } from "forge-std/src/console2.sol";
 
 contract CommitBox is Ownable {
     using SafeTransferLib for address;
@@ -29,6 +30,8 @@ contract CommitBox is Ownable {
         // new slot
         address user;
         uint40 deadline;
+        // after claimTime, it becomes impossible to resolve & the original user can
+        // collect their funds
         uint40 claimTime;
         uint8 bitmap;
         // new slot(s)
@@ -99,6 +102,7 @@ contract CommitBox is Ownable {
                 text: text
             })
         );
+        userCommitments[msg.sender].push(id);
 
         token.safeTransferFrom(msg.sender, address(this), amount);
 
@@ -114,6 +118,7 @@ contract CommitBox is Ownable {
 
         require(isResolver[id][msg.sender], Unauthorized());
         require(!c.bitmap.get(RESOLVED), AlreadyResolved());
+        console2.log(c.bitmap);
 
         emit Resolved(id, msg.sender, happened);
 
@@ -121,12 +126,12 @@ contract CommitBox is Ownable {
         // but allow an early exit if the task is completed early
         if (happened) {
             c.token.safeTransfer(c.user, c.amount);
-            c.bitmap.set(SUCCESS);
+            c.bitmap = c.bitmap.set(SUCCESS);
         } else {
             require(block.timestamp >= c.deadline && block.timestamp <= c.claimTime, Early());
             c.token.safeTransfer(receiver, c.amount);
         }
-        c.bitmap.set(RESOLVED);
+        c.bitmap = c.bitmap.set(RESOLVED);
     }
 
     function claim(uint256 id) external {
@@ -137,8 +142,7 @@ contract CommitBox is Ownable {
 
         emit Resolved(id, msg.sender, true);
 
-        c.bitmap.set(RESOLVED);
-        c.bitmap.set(SUCCESS);
+        c.bitmap = c.bitmap.set(RESOLVED).set(SUCCESS);
         c.token.safeTransfer(c.user, c.amount);
     }
 }
