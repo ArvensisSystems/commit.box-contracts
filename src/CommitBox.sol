@@ -71,8 +71,10 @@ contract CommitBox is Ownable {
         }
     }
 
-    constructor() {
-        _initializeOwner(msg.sender);
+    constructor(address _owner, address _receiver) {
+        _initializeOwner(_owner);
+        emit ReceiverChange(receiver, _receiver);
+        receiver = _receiver;
     }
 
     function commit(

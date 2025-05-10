@@ -15,7 +15,7 @@ contract CommitBoxTest is Test {
     /// @dev A function invoked before each test case is run.
     function setUp() public virtual {
         // Instantiate the contract-under-test.
-        box = new CommitBox();
+        box = new CommitBox(address(this), address(0x31313));
         token = new MockERC20();
     }
 
