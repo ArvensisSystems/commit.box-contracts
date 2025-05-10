@@ -6,7 +6,11 @@
     "name": "ArvensisSystems",
     "url": "https://github.com/ArvensisSystems"
   },
-  "main": "exported-js/index.ts",
+  "main": "generated/index.js",
+  "types": "generated/index.d.ts",
+  "files": [
+    "generated"
+  ],
   "dependencies": {
     "solady": "^0.1.17",
     "zod": "^3.24.4"
@@ -26,7 +30,6 @@
     "smart-contracts",
     "solidity"
   ],
-  "private": true,
   "scripts": {
     "clean": "rm -rf cache out",
     "build": "forge build",
