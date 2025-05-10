@@ -6,10 +6,14 @@
     "name": "ArvensisSystems",
     "url": "https://github.com/ArvensisSystems"
   },
+  "main": "exported-js/index.ts",
   "dependencies": {
-    "solady": "^0.1.17"
+    "solady": "^0.1.17",
+    "zod": "^3.24.4"
   },
   "devDependencies": {
+    "@types/bun": "^1.2.12",
+    "@types/node": "^22.15.17",
     "forge-std": "github:foundry-rs/forge-std#v1.8.1",
     "prettier": "^3.0.0",
     "solhint": "^3.6.2"
@@ -20,8 +24,7 @@
     "forge",
     "foundry",
     "smart-contracts",
-    "solidity",
-    "template"
+    "solidity"
   ],
   "private": true,
   "scripts": {
@@ -33,6 +36,8 @@
     "prettier:write": "prettier --write \"**/*.{json,md,yml}\"",
     "test": "forge test",
     "test:coverage": "forge coverage",
-    "test:coverage:report": "forge coverage --report lcov && genhtml lcov.info --branch-coverage --output-dir coverage"
+    "test:coverage:report": "forge coverage --report lcov && genhtml lcov.info --branch-coverage --output-dir coverage",
+    "deploy:sol": "forge script script/Deploy.s.sol --rpc-url ${NETWORK:localhost} --broadcast --interactives 1 && bun script/generate.ts",
+    "generate:abi": "bun script/generate.ts"
   }
 }

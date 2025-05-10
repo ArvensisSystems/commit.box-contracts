@@ -1,10 +1,11 @@
 # Full reference https://github.com/foundry-rs/foundry/tree/master/crates/config
 
 [profile.default]
+bytecode_hash = "none"
+cbor_metadata = false
 auto_detect_solc = false
 block_timestamp = 1_738_368_000    # Feb 1, 2025 at 00:00 GMT
-bytecode_hash = "none"
-evm_version = "shanghai"
+evm_version = "cancun"
 fuzz = { runs = 1_000 }
 gas_reports = ["*"]
 optimizer = true
@@ -36,7 +37,7 @@ wrap_comments = true
 [rpc_endpoints]
 arbitrum = "https://arbitrum-one-rpc.publicnode.com"
 avalanche = "https://avalanche-c-chain-rpc.publicnode.com"
-base = "https://base-mainnet.public.blastapi.io"
+base = "https://base.meowrpc.com"
 bnb_smart_chain = "https://bsc-dataseed.binance.org"
 gnosis_chain = "https://rpc.gnosischain.com"
 localhost = "http://localhost:8545"
