@@ -14,6 +14,8 @@ library LynBitmap8 {
 
     function get(uint8 bitmap, uint8 index) internal pure returns (bool isSet) {
         uint256 b = (bitmap >> uint8(index & 0xff)) & 1;
+
+        // solhint-disable no-inline-assembly
         /// @solidity memory-safe-assembly
         assembly {
             isSet := b

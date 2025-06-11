@@ -4,7 +4,6 @@ pragma solidity >=0.8.29;
 import { Ownable } from "solady/src/auth/Ownable.sol";
 import { SafeTransferLib } from "solady/src/utils/SafeTransferLib.sol";
 import { LynBitmap8 } from "./LynBitmap.sol";
-import { console2 } from "forge-std/src/console2.sol";
 
 contract CommitBox is Ownable {
     using SafeTransferLib for address;
@@ -21,25 +20,30 @@ contract CommitBox is Ownable {
     uint8 internal constant RESOLVED = 0;
     uint8 internal constant SUCCESS = 1;
 
+    address internal constant ETH = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
+
     address public receiver;
 
+    // One commitment takes up >3 slots
     struct Commitment {
-        // new slot
+        // new slot (160 + 96 = 256)
         address token;
         uint96 amount;
-        // new slot
+        // new slot (160 + 40 + 40 + 8 = 248)
         address user;
         uint40 deadline;
         // after claimTime, it becomes impossible to resolve & the original user can
         // collect their funds
         uint40 claimTime;
         uint8 bitmap;
+        // new slot (160)
+        address resolver;
         // new slot(s)
         string text;
     }
 
     Commitment[] public commitments;
-    mapping(address => uint256[] ids) public userCommitments;
+    mapping(address user => uint256[] ids) public userCommitments;
     mapping(uint256 id => mapping(address resolver => bool yes)) public isResolver;
 
     function setReceiver(address next) public onlyOwner {
@@ -77,22 +81,49 @@ contract CommitBox is Ownable {
         receiver = _receiver;
     }
 
+    function commitETH(
+        uint40 deadline,
+        uint40 claimTime,
+        string memory text,
+        address resolver
+    )
+        external
+        payable
+        returns (uint256)
+    {
+        return _commit(ETH, uint96(msg.value), deadline, claimTime, text, resolver);
+    }
+
     function commit(
         address token,
         uint96 amount,
         uint40 deadline,
         uint40 claimTime,
         string memory text,
-        address[] memory resolvers
+        address resolver
     )
         external
         returns (uint256)
     {
-        uint256 id = commitments.length;
-        emit NewCommitment(id, token, amount, deadline, claimTime, text);
+        token.safeTransferFrom(msg.sender, address(this), amount);
+        return _commit(token, amount, deadline, claimTime, text, resolver);
+    }
 
+    function _commit(
+        address token,
+        uint96 amount,
+        uint40 deadline,
+        uint40 claimTime,
+        string memory text,
+        address resolver
+    )
+        internal
+        returns (uint256)
+    {
         require(claimTime >= deadline, BadConfig());
 
+        uint256 id = commitments.length;
+        emit NewCommitment(id, token, amount, deadline, claimTime, text);
         commitments.push(
             Commitment({
                 token: token,
@@ -101,39 +132,34 @@ contract CommitBox is Ownable {
                 deadline: deadline,
                 claimTime: claimTime,
                 bitmap: 0,
+                resolver: resolver,
                 text: text
             })
         );
         userCommitments[msg.sender].push(id);
-
-        token.safeTransferFrom(msg.sender, address(this), amount);
-
-        for (uint256 i = 0; i < resolvers.length; ++i) {
-            isResolver[id][resolvers[i]] = true;
-        }
-
         return id;
     }
 
     function resolve(uint256 id, bool happened) external {
         Commitment storage c = commitments[id];
 
-        require(isResolver[id][msg.sender], Unauthorized());
+        require(c.resolver == msg.sender, Unauthorized());
         require(!c.bitmap.get(RESOLVED), AlreadyResolved());
-        console2.log(c.bitmap);
 
         emit Resolved(id, msg.sender, happened);
+        c.bitmap = c.bitmap.set(RESOLVED);
+
+        address target = happened ? c.user : receiver;
 
         // Resolver can only burn the tokens after the deadline
         // but allow an early exit if the task is completed early
         if (happened) {
-            c.token.safeTransfer(c.user, c.amount);
             c.bitmap = c.bitmap.set(SUCCESS);
         } else {
             require(block.timestamp >= c.deadline && block.timestamp <= c.claimTime, Early());
-            c.token.safeTransfer(receiver, c.amount);
         }
-        c.bitmap = c.bitmap.set(RESOLVED);
+
+        _send(c.token, target, c.amount);
     }
 
     function claim(uint256 id) external {
@@ -145,6 +171,15 @@ contract CommitBox is Ownable {
         emit Resolved(id, msg.sender, true);
 
         c.bitmap = c.bitmap.set(RESOLVED).set(SUCCESS);
-        c.token.safeTransfer(c.user, c.amount);
+
+        _send(c.token, c.user, c.amount);
+    }
+
+    function _send(address token, address user, uint256 amount) internal {
+        if (token == ETH) {
+            payable(user).transfer(amount);
+        } else {
+            token.safeTransfer(user, amount);
+        }
     }
 }

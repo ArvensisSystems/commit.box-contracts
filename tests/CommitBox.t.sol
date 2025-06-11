@@ -22,9 +22,6 @@ contract CommitBoxTest is Test {
     function testListCommitments(uint256 iterations) external {
         iterations = bound(iterations, 1, 100);
         token.mint(address(this), 1 ether * iterations);
-        address[] memory x = new address[](1);
-        x[0] = address(0x222);
-
         token.approve(address(box), 1 ether * iterations);
 
         for (uint256 i = 0; i < iterations; i++) {
@@ -34,7 +31,7 @@ contract CommitBoxTest is Test {
                 uint40(block.timestamp + 1 weeks + i),
                 uint40(block.timestamp + 1 weeks + i + 1),
                 "nya",
-                x
+                address(0x222)
             );
         }
 
@@ -52,11 +49,13 @@ contract CommitBoxTest is Test {
         token.mint(address(this), 1 ether);
         token.approve(address(box), 1 ether);
 
-        address[] memory x = new address[](1);
-        x[0] = address(0x222);
-
         uint256 id = box.commit(
-            address(token), 1 ether, uint40(block.timestamp + 1 weeks), uint40(block.timestamp + 1.5 weeks), "nya", x
+            address(token),
+            1 ether,
+            uint40(block.timestamp + 1 weeks),
+            uint40(block.timestamp + 1.5 weeks),
+            "nya",
+            address(0x222)
         );
 
         skip(1 weeks);
@@ -69,11 +68,13 @@ contract CommitBoxTest is Test {
         token.mint(address(this), 1 ether);
         token.approve(address(box), 1 ether);
 
-        address[] memory x = new address[](1);
-        x[0] = address(0x222);
-
         uint256 id = box.commit(
-            address(token), 1 ether, uint40(block.timestamp + 1 weeks), uint40(block.timestamp + 1.5 weeks), "nya", x
+            address(token),
+            1 ether,
+            uint40(block.timestamp + 1 weeks),
+            uint40(block.timestamp + 1.5 weeks),
+            "nya",
+            address(0x222)
         );
 
         skip(1 weeks);
@@ -86,11 +87,13 @@ contract CommitBoxTest is Test {
         token.mint(address(this), 1 ether);
         token.approve(address(box), 1 ether);
 
-        address[] memory x = new address[](1);
-        x[0] = address(0x222);
-
         uint256 id = box.commit(
-            address(token), 1 ether, uint40(block.timestamp + 1 weeks), uint40(block.timestamp + 1.5 weeks), "nya", x
+            address(token),
+            1 ether,
+            uint40(block.timestamp + 1 weeks),
+            uint40(block.timestamp + 1.5 weeks),
+            "nya",
+            address(0x222)
         );
 
         skip(1 days);
@@ -103,11 +106,13 @@ contract CommitBoxTest is Test {
         token.mint(address(this), 1 ether);
         token.approve(address(box), 1 ether);
 
-        address[] memory x = new address[](1);
-        x[0] = address(0x222);
-
         uint256 id = box.commit(
-            address(token), 1 ether, uint40(block.timestamp + 1 weeks), uint40(block.timestamp + 1.5 weeks), "nya", x
+            address(token),
+            1 ether,
+            uint40(block.timestamp + 1 weeks),
+            uint40(block.timestamp + 1.5 weeks),
+            "nya",
+            address(0x222)
         );
 
         skip(1 days);
@@ -119,11 +124,13 @@ contract CommitBoxTest is Test {
         token.mint(address(this), 1 ether);
         token.approve(address(box), 1 ether);
 
-        address[] memory x = new address[](1);
-        x[0] = address(0x222);
-
         uint256 id = box.commit(
-            address(token), 1 ether, uint40(block.timestamp + 1 weeks), uint40(block.timestamp + 1.5 weeks), "nya", x
+            address(token),
+            1 ether,
+            uint40(block.timestamp + 1 weeks),
+            uint40(block.timestamp + 1.5 weeks),
+            "nya",
+            address(0x222)
         );
 
         skip(1.5 weeks);
@@ -134,11 +141,13 @@ contract CommitBoxTest is Test {
         token.mint(address(this), 1 ether);
         token.approve(address(box), 1 ether);
 
-        address[] memory x = new address[](1);
-        x[0] = address(0x222);
-
         uint256 id = box.commit(
-            address(token), 1 ether, uint40(block.timestamp + 1 weeks), uint40(block.timestamp + 1.5 weeks), "nya", x
+            address(token),
+            1 ether,
+            uint40(block.timestamp + 1 weeks),
+            uint40(block.timestamp + 1.5 weeks),
+            "nya",
+            address(0x222)
         );
 
         skip(1 weeks);
@@ -150,11 +159,13 @@ contract CommitBoxTest is Test {
         token.mint(address(this), 1 ether);
         token.approve(address(box), 1 ether);
 
-        address[] memory x = new address[](1);
-        x[0] = address(0x222);
-
         uint256 id = box.commit(
-            address(token), 1 ether, uint40(block.timestamp + 1 weeks), uint40(block.timestamp + 1.5 weeks), "nya", x
+            address(token),
+            1 ether,
+            uint40(block.timestamp + 1 weeks),
+            uint40(block.timestamp + 1.5 weeks),
+            "nya",
+            address(0x222)
         );
 
         skip(1.5 weeks);
@@ -166,11 +177,13 @@ contract CommitBoxTest is Test {
         token.mint(address(this), 1 ether);
         token.approve(address(box), 1 ether);
 
-        address[] memory x = new address[](1);
-        x[0] = address(0x222);
-
         uint256 id = box.commit(
-            address(token), 1 ether, uint40(block.timestamp + 1 weeks), uint40(block.timestamp + 1.5 weeks), "nya", x
+            address(token),
+            1 ether,
+            uint40(block.timestamp + 1 weeks),
+            uint40(block.timestamp + 1.5 weeks),
+            "nya",
+            address(0x222)
         );
 
         vm.startPrank(address(0x222));
@@ -185,11 +198,13 @@ contract CommitBoxTest is Test {
         token.mint(address(this), 1 ether);
         token.approve(address(box), 1 ether);
 
-        address[] memory x = new address[](1);
-        x[0] = address(0x222);
-
         uint256 id = box.commit(
-            address(token), 1 ether, uint40(block.timestamp + 1 weeks), uint40(block.timestamp + 1.5 weeks), "nya", x
+            address(token),
+            1 ether,
+            uint40(block.timestamp + 1 weeks),
+            uint40(block.timestamp + 1.5 weeks),
+            "nya",
+            address(0x222)
         );
 
         skip(1.5 weeks);
@@ -202,11 +217,13 @@ contract CommitBoxTest is Test {
         token.mint(address(this), 1 ether);
         token.approve(address(box), 1 ether);
 
-        address[] memory x = new address[](1);
-        x[0] = address(0x222);
-
         uint256 id = box.commit(
-            address(token), 1 ether, uint40(block.timestamp + 1 weeks), uint40(block.timestamp + 1.5 weeks), "nya", x
+            address(token),
+            1 ether,
+            uint40(block.timestamp + 1 weeks),
+            uint40(block.timestamp + 1.5 weeks),
+            "nya",
+            address(0x222)
         );
 
         skip(1 weeks);
