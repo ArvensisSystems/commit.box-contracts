@@ -18,6 +18,7 @@
   "devDependencies": {
     "@types/bun": "^1.2.12",
     "@types/node": "^22.15.17",
+    "@usecannon/cli": "^2.23.0",
     "forge-std": "github:foundry-rs/forge-std#v1.8.1",
     "prettier": "^3.0.0",
     "solhint": "^3.6.2"
@@ -40,7 +41,7 @@
     "test": "forge test",
     "test:coverage": "forge coverage",
     "test:coverage:report": "forge coverage --report lcov && genhtml lcov.info --branch-coverage --output-dir coverage",
-    "deploy:sol": "forge script script/Deploy.s.sol --rpc-url ${NETWORK:localhost} --broadcast --interactives 1 && bun script/generate.ts",
-    "generate:abi": "bun script/generate.ts"
+    "deploy:dry": "cannon build --dry-run",
+    "deploy:live": "cannon build"
   }
 }

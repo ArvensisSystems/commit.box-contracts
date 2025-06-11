@@ -1,8 +1,6 @@
 # Full reference https://github.com/foundry-rs/foundry/tree/master/crates/config
 
 [profile.default]
-bytecode_hash = "none"
-cbor_metadata = false
 auto_detect_solc = false
 block_timestamp = 1_738_368_000    # Feb 1, 2025 at 00:00 GMT
 evm_version = "cancun"
@@ -20,9 +18,6 @@ always_use_create_2_factory = true
 [profile.ci]
 fuzz = { runs = 10_000 }
 verbosity = 4
-
-[etherscan]
-mainnet = { key = "${API_KEY_ETHERSCAN}" }
 
 [fmt]
 bracket_spacing = true

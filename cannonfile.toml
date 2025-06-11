@@ -1,0 +1,12 @@
+name = 'commitbox'
+version = '1.0.0'
+description = 'you can just force yourself to do things'
+
+[var.ProtocolSettings]
+owner = "0xC2f3F2c8084d6bc40887B0B867353d280e3D742D"
+receiver = "0x3FF6b6560C8E12c60f39A701d36AE27512DD8981"
+
+[deploy.CommitBox]
+artifact = "CommitBox"
+create2 = true
+args = ["<%= settings.owner %>", "<%= settings.receiver %>"]

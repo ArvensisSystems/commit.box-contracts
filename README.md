@@ -19,6 +19,7 @@ A Foundry-based template for developing Solidity smart contracts, with sensible 
 - [Forge Std](https://github.com/foundry-rs/forge-std): collection of helpful contracts and utilities for testing
 - [Prettier](https://github.com/prettier/prettier): code formatter for non-Solidity files
 - [Solhint](https://github.com/protofire/solhint): linter for Solidity code
+- [Cannon](https://usecannon.com): declarative deployment tool for contracts
 
 ## Getting Started
 
@@ -136,17 +137,11 @@ $ forge coverage
 
 ### Deploy
 
-Deploy to Anvil:
+Deploy to live network:
 
 ```sh
-$ forge script script/Deploy.s.sol --broadcast --fork-url http://localhost:8545
+$ bun deploy:live --rpc-url URL --private-key PRIVATE_KEY
 ```
-
-For this script to work, you need to have a `MNEMONIC` environment variable set to a valid
-[BIP39 mnemonic](https://iancoleman.io/bip39/).
-
-For instructions on how to deploy to a testnet or mainnet, check out the
-[Solidity Scripting](https://book.getfoundry.sh/tutorials/solidity-scripting.html) tutorial.
 
 ### Format
 
@@ -211,4 +206,4 @@ $ bun run test:coverage:report
 
 ## License
 
-This project is licensed under MIT.
+This project is licensed under AGPL 3.0.
