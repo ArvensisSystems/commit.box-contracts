@@ -1,5 +1,5 @@
 name = 'commitbox'
-version = '1.0.1'
+version = '1.0.0'
 description = 'you can just force yourself to do things'
 
 [var.ProtocolSettings]
